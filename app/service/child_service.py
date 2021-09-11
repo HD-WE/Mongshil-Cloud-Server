@@ -36,3 +36,11 @@ class ChildService:
             return jsonify({"heart_rate" : response})
         else:
             return WrongResource()
+
+    def get_movement(self, child_id):
+        if(self.child_dao.find_child_id(child_id) != 0):
+            response = self.child_dao.select_movement(child_id)
+
+            return jsonify({"movement" : response})
+        else:
+            return WrongResource()

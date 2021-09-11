@@ -42,5 +42,15 @@ def child_view(child_service):
         else:
             return NotAllowedMethod()
 
+    @child_blueprint.route('/<child_id>/movement', methods=['GET'])
+    def get_movement(child_id):
+        if request.method == 'GET':
+
+            response = child_service.get_movement(child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
 
     return child_blueprint

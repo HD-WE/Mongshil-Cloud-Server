@@ -42,6 +42,13 @@ class ChildDao:
 
         return heart_rage[0][0]
 
+    def select_movement(self, child_id):
+        movement = self.db.execute(text(f"""
+                    SELECT movement FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
+            """)).fetchall()
+
+        return movement[0][0]
+
 
     def find_child_id(self, child_id):
         child = self.db.execute(text(f"""
