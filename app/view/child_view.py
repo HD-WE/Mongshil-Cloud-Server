@@ -32,5 +32,15 @@ def child_view(child_service):
         else:
             return NotAllowedMethod()
 
+    @child_blueprint.route('/<child_id>/heart_rate', methods=['GET'])
+    def get_heart_rate(child_id):
+        if request.method == 'GET':
+
+            response = child_service.get_heart_rate(child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
 
     return child_blueprint
