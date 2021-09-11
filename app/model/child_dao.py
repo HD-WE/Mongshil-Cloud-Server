@@ -28,12 +28,17 @@ class ChildDao:
         except:
             return WrongResource()
 
+    def select_temperature(self, child_id):
+            temperature = self.db.execute(text(f"""
+                    SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time
+            """)).fetchall()
+
+            return temperature[0][0]
+
+
     def find_child_id(self, child_id):
-        try:
-            self.db.execute(text(f"""
-                    SELECT * FROM child WHERE id LIKE '{child_id}'
-            """), child_id)
-            return true
-        except:
-            return false
-            
+        child = self.db.execute(text(f"""
+                SELECT COUNT(*) FROM child WHERE id LIKE '{child_id}'
+        """)).fetchall()
+
+        return child[0][0]

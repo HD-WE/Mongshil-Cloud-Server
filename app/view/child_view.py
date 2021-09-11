@@ -1,6 +1,7 @@
 from flask import Blueprint, json, request, jsonify
 from werkzeug.exceptions import ClientDisconnected
-from  ..service.child_service import ChildService
+from app.service.child_service import ChildService
+from app.exception import NotAllowedMethod
 
 def child_view(child_service):
     child_blueprint = Blueprint('child', __name__, url_prefix='/child')
@@ -18,5 +19,18 @@ def child_view(child_service):
             response = child_service.save_measured_datas(measured_datas_json, child_id)
 
             return response
+        else:
+            return NotAllowedMethod()
+
+    @child_blueprint.route('/<child_id>/teamperature', methods=['GET'])
+    def get_temperature(child_id):
+        if request.method == 'GET':
+
+            response = child_service.get_temperature(child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
 
     return child_blueprint
