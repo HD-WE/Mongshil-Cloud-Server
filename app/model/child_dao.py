@@ -30,7 +30,7 @@ class ChildDao:
 
     def select_temperature(self, child_id):
             temperature = self.db.execute(text(f"""
-                    SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time
+                    SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
             """)).fetchall()
 
             return temperature[0][0]
