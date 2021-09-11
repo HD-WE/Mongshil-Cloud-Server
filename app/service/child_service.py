@@ -44,3 +44,11 @@ class ChildService:
             return jsonify({"movement" : response})
         else:
             return WrongResource()
+
+    def get_measured_time(self, child_id):
+        if(self.child_dao.find_child_id(child_id) != 0):
+            response = self.child_dao.select_measured_time(child_id)
+
+            return jsonify({"measured_time" : str(response)})
+        else:
+            return WrongResource()

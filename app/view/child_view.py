@@ -52,5 +52,15 @@ def child_view(child_service):
         else:
             return NotAllowedMethod()
 
+    @child_blueprint.route('/<child_id>/measured_time', methods=['GET'])
+    def get_measured_time(child_id):
+        if request.method == 'GET':
+
+            response = child_service.get_measured_time(child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
 
     return child_blueprint

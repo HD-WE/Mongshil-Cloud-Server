@@ -49,6 +49,13 @@ class ChildDao:
 
         return movement[0][0]
 
+    def select_measured_time(self, child_id):
+        measured_time = self.db.execute(text(f"""
+                    SELECT measured_time FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
+            """)).fetchall()
+            
+        return measured_time[0][0]
+
 
     def find_child_id(self, child_id):
         child = self.db.execute(text(f"""
