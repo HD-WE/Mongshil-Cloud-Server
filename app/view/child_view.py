@@ -21,5 +21,19 @@ def child_view(child_service):
             return response
         else:
             return NotAllowedMethod()
+<<<<<<< HEAD
+=======
+
+    @child_blueprint.route('/<child_id>/teamperature', methods=['GET'])
+    def get_temperature(child_id):
+        if request.method == 'GET':
+
+            response = child_service.get_temperature(child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
+>>>>>>> feature/get_measured_datas
 
     return child_blueprint
