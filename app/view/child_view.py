@@ -10,16 +10,13 @@ def child_view(child_service):
         #user_service = ChildService
         return "Hello"
 
-    @child_blueprint.route('/measured_datas', methods=['POST'])
-    def save_measured_datas():
+    @child_blueprint.route('/<child_id>/measured_datas', methods=['POST'])
+    def save_measured_datas(child_id):
         if request.method == 'POST':
             measured_datas_json = request.json
             
-            err, code = child_service.save_measured_datas(measured_datas_json)
+            response = child_service.save_measured_datas(measured_datas_json, child_id)
 
-            return jsonify({"message" : err,
-                            "status_code" : code})
-            
-        return f"{request.method} is not supported"
+            return response
 
     return child_blueprint
