@@ -11,3 +11,7 @@ class WrongResource(MungshilException):
 class SuccessRequest(MungshilException):
     code = 200
     description = "success return response"
+
+class NotAllowedMethod(MungshilException):
+    code = 405
+    description = "not allowed method" 
