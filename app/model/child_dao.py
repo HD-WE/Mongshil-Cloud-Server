@@ -30,10 +30,31 @@ class ChildDao:
 
     def select_temperature(self, child_id):
             temperature = self.db.execute(text(f"""
-                    SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time
+                    SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
             """)).fetchall()
 
             return temperature[0][0]
+
+    def select_heart_rate(self, child_id):
+        heart_rage = self.db.execute(text(f"""
+                    SELECT heart_rate FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
+            """)).fetchall()
+
+        return heart_rage[0][0]
+
+    def select_movement(self, child_id):
+        movement = self.db.execute(text(f"""
+                    SELECT movement FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
+            """)).fetchall()
+
+        return movement[0][0]
+
+    def select_measured_time(self, child_id):
+        measured_time = self.db.execute(text(f"""
+                    SELECT measured_time FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
+            """)).fetchall()
+            
+        return measured_time[0][0]
 
 
     def find_child_id(self, child_id):
