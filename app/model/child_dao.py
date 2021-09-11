@@ -35,7 +35,7 @@ class ChildDao:
 
             return temperature[0][0]
 
-    def select_heart_rage(self, child_id):
+    def select_heart_rate(self, child_id):
         heart_rage = self.db.execute(text(f"""
                     SELECT heart_rate FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
             """)).fetchall()

@@ -31,7 +31,7 @@ class ChildService:
 
     def get_heart_rate(self, child_id):
         if(self.child_dao.find_child_id(child_id) != 0):
-            response = self.child_dao.select_heart_rage(child_id)
+            response = self.child_dao.select_heart_rate(child_id)
 
             return jsonify({"heart_rate" : response})
         else:
