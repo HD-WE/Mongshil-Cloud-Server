@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask.globals import session
 
-from app.exception import NotAllowedMethod, Unauthorized
+from app.exception import NotAllowedMethod, Unauthorized, WrongResource
 
 def parents_view(parents_service):
     parents_blueprint = Blueprint('parents', __name__, url_prefix='/parents')
@@ -17,6 +17,21 @@ def parents_view(parents_service):
                 return response
             else:
                 return Unauthorized()
+        else:
+            return NotAllowedMethod()
+
+    @parents_blueprint.route('/childs', methods=['GET'])
+    def get_child_info():
+        if request.method == 'GET':
+            session.clear()
+            session['parents_code'] = "BBB"
+            try:
+                parents_code = session.get('parents_code', None)
+                response = parents_service.get_child_info(parents_code)
+
+                return response
+            except:
+                return WrongResource()
         else:
             return NotAllowedMethod()
 

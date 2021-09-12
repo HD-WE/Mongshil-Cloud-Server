@@ -11,6 +11,13 @@ class ParentsDao():
             
         return parents_info[0]
 
+    def select_child_info(self, parents_code):
+        child_info = self.db.execute(text(f"""
+                    SELECT name, device_id FROM child WHERE parents_code = '{parents_code}'
+        """)).fetchall()
+
+        return child_info
+
     def find_parent_code(self, parents_code):
         parents_info = self.db.execute(text(f"""
                     SELECT COUNT(*) FROM user WHERE parents_code = '{parents_code}'
