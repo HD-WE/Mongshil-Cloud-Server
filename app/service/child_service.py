@@ -1,4 +1,5 @@
 import datetime
+from flask import json
 
 from flask.json import jsonify
 from sqlalchemy.sql.expression import false, true
@@ -9,15 +10,20 @@ class ChildService:
         self.child_dao = child_dao
 
     def save_measured_datas(self, measured_datas, child_id):
-        if(self.child_dao.find_child_id(child_id)):
-            now = datetime.datetime.now()
+        if(self.child_dao.find_child_id(child_id) != 0):
+            if(self.check_is_weared(measured_datas) == true):
+                now = datetime.datetime.now()
 
-            measured_datas['measured_time'] = now.strftime('%H:%M:%S')
-            measured_datas['child_id'] = child_id
+                print(measured_datas)
 
-            response = self.child_dao.insert_measured_datas(measured_datas)
-        
-            return response
+                measured_datas['measured_time'] = now.strftime('%H:%M:%S')
+                measured_datas['child_id'] = child_id
+
+                response = self.child_dao.insert_measured_datas(measured_datas)
+            
+                return response
+            else:
+                return jsonify({"message" : "child is not weared device"})
         else:
             return WrongResource()
 
@@ -63,3 +69,9 @@ class ChildService:
             return jsonify({"is_weared" : response})
         else:
             return WrongResource()
+
+    def check_is_weared(self, measured_datas):
+        if(float(measured_datas['temperature']) < 20 or int(measured_datas['heart_rate']) < 20):
+            return false
+        else:
+            return true
