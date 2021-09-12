@@ -6,11 +6,6 @@ from app.exception import NotAllowedMethod
 def child_view(child_service):
     child_blueprint = Blueprint('child', __name__, url_prefix='/child')
 
-    @child_blueprint.route('/hello', methods=['GET'])
-    def hello():
-        #user_service = ChildService
-        return "Hello"
-
     @child_blueprint.route('/<child_id>/measured_datas', methods=['POST'])
     def save_measured_datas(child_id):
         if request.method == 'POST':

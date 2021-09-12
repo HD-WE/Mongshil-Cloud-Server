@@ -33,7 +33,6 @@ def create_app() -> Flask:
     service = Service
     service.user_service = UserService(user_dao, config) # config는 jwt token을 위해 필요함
     service.child_service = ChildService(child_dao)
-    
 
     register_blueprint(app, service)
 
