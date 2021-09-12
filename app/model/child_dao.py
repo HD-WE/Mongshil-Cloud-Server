@@ -56,10 +56,17 @@ class ChildDao:
             
         return measured_time[0][0]
 
+    def select_is_weared(self, child_id):
+        is_weared = self.db.execute(text(f"""
+                    SELECT is_weared FROM child WHERE id LIKE '{child_id}'
+            """)).fetchall()
+            
+        return is_weared[0][0]
+
 
     def find_child_id(self, child_id):
         child = self.db.execute(text(f"""
-                SELECT COUNT(*) FROM child WHERE id LIKE '{child_id}'
+                    SELECT COUNT(*) FROM child WHERE id LIKE '{child_id}'
         """)).fetchall()
 
         return child[0][0]

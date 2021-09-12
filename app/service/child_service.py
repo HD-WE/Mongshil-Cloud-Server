@@ -1,7 +1,7 @@
 import datetime
 
 from flask.json import jsonify
-from sqlalchemy.sql.expression import true
+from sqlalchemy.sql.expression import false, true
 from app.exception import WrongResource
 
 class ChildService:
@@ -50,5 +50,16 @@ class ChildService:
             response = self.child_dao.select_measured_time(child_id)
 
             return jsonify({"measured_time" : str(response)})
+        else:
+            return WrongResource()
+
+    def get_is_weared(self, child_id):
+        if(self.child_dao.find_child_id(child_id) != 0):
+            response = self.child_dao.select_is_weared(child_id)
+
+            if(response == 1): response = "true"
+            else: response = "false"
+
+            return jsonify({"is_weared" : response})
         else:
             return WrongResource()
