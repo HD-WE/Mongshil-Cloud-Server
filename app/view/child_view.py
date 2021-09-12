@@ -17,6 +17,17 @@ def child_view(child_service):
         else:
             return NotAllowedMethod()
 
+    @child_blueprint.route('/<child_id>/standard_status', methods=['POST'])
+    def save_standard_datas(child_id):
+        if request.method == 'POST':
+            measured_datas_json = request.json
+            
+            response = child_service.save_standard_datas(measured_datas_json, child_id)
+
+            return response
+        else:
+            return NotAllowedMethod()
+
     @child_blueprint.route('/<child_id>/temperature', methods=['GET'])
     def get_temperature(child_id):
         if request.method == 'GET':

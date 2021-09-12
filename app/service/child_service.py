@@ -25,6 +25,17 @@ class ChildService:
         else:
             return WrongResource()
 
+    def save_standard_datas(self, measured_datas, child_id):
+        if(self.child_dao.find_child_id(child_id) != 0):
+
+            print(measured_datas)
+
+            response = self.child_dao.insert_standard_datas(measured_datas, child_id)
+            
+            return response
+        else:
+            return WrongResource()
+
     def get_temperature(self, child_id):
         if(self.child_dao.find_child_id(child_id) != 0):
             response = self.child_dao.select_temperature(child_id)

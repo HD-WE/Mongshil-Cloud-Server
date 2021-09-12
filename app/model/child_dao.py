@@ -28,6 +28,16 @@ class ChildDao:
         except:
             return WrongResource()
 
+    def insert_standard_datas(self, measured_datas, child_id):
+        try:
+            self.db.execute(text(f"""
+                    UPDATE child SET standard_temperature = {measured_datas['temperature']}, standard_heart_rate = {measured_datas['heart_rate']} WHERE (id ='{child_id}')
+                        """), measured_datas)
+
+            return SuccessRequest()
+        except:
+            return WrongResource()
+
     def select_temperature(self, child_id):
             temperature = self.db.execute(text(f"""
                     SELECT temperature FROM measured_datas WHERE child_id LIKE '{child_id}' ORDER BY measured_time DESC
