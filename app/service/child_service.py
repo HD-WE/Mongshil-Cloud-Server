@@ -14,8 +14,6 @@ class ChildService:
             if(self.check_is_weared(measured_datas) == true):
                 now = datetime.datetime.now()
 
-                print(measured_datas)
-
                 measured_datas['measured_time'] = now.strftime('%H:%M:%S')
                 measured_datas['child_id'] = child_id
 
