@@ -9,13 +9,13 @@ def parents_view(parents_service):
     @parents_blueprint.route('/', methods=['GET'])
     def get_parents_info():
         if request.method == 'GET':
-            if(session['parents_code'] != None):
+            try:
                 parents_code = session.get('parents_code', None)
 
                 response = parents_service.get_parents_info(parents_code)
 
                 return response
-            else:
+            except:
                 return Unauthorized()
         else:
             return NotAllowedMethod()
@@ -23,7 +23,6 @@ def parents_view(parents_service):
     @parents_blueprint.route('/childs', methods=['GET'])
     def get_child_info():
         if request.method == 'GET':
-            session.clear()
             session['parents_code'] = "BBB"
             try:
                 parents_code = session.get('parents_code', None)
