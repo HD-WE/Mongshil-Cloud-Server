@@ -1,5 +1,5 @@
 from flask.json import detect_encoding
-from werkzeug.exceptions import HTTPException, default_exceptions
+from werkzeug.exceptions import HTTPException
 
 class MungshilException(HTTPException):
     pass
@@ -11,10 +11,6 @@ class WrongResource(MungshilException):
 class SuccessRequest(MungshilException):
     code = 200
     description = "success return response"
-
-class NotAllowedMethod(MungshilException):
-    code = 405
-    description = "not allowed method" 
 
 class Unauthorized(MungshilException):
     code = 401
