@@ -1,5 +1,6 @@
 from app.extension import db
 from app.model.mixin import BaseMixin
+from app.exception import WrongResource
 
 class Parents(db.Model, BaseMixin):
     __tablename__ = 'user'
@@ -22,6 +23,16 @@ class Parents(db.Model, BaseMixin):
         parents_info = Parents.query.filter_by(parents_code=parents_code).first()
 
         if parents_info == None:
-            return None
+            raise WrongResource()
 
         return parents_info
+
+    def update_parents_info(parents_code, name):
+        parents_info = Parents.query.filter_by(parents_code=parents_code).first()
+
+        if parents_info == None:
+            raise WrongResource()
+
+        parents_info.name = name
+
+        db.session.commit()

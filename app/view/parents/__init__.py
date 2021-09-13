@@ -6,7 +6,8 @@ from flask_restful import Api
 parents_blueprint = Blueprint('parents', __name__, url_prefix='/parents')
 parents_api = Api(parents_blueprint)
 
-from .parents_info import ParentsInfo, ChildInfo
+from .parents_info import ParentsInfo, ChildInfo, ChangeInfo
 
 parents_api.add_resource(ParentsInfo, '/info')
 parents_api.add_resource(ChildInfo, '/childs')
+parents_api.add_resource(ChangeInfo, '/change_info')
