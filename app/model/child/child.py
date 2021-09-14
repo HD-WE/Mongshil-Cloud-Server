@@ -1,14 +1,13 @@
-from uuid import UUID
 from app.exception import WrongResource
 from app.extension import db
 from app.model.mixin import BaseMixin
 
-from sqlalchemy.dialects.mysql import BINARY
+from sqlalchemy import text
 
 class Child(db.Model, BaseMixin):
     __tablename__ = 'child'
 
-    id = db.Column(BINARY(16), primary_key=True)
+    id = db.Column(db.String(45), primary_key=True)
     parents_code = db.Column(db.String(45),  db.ForeignKey('user.parents_code', ondelete='CASCADE'), nullable=False)
     device_id = db.Column(db.String(45), nullable=False)
     name = db.Column(db.String(45), nullable=False)
@@ -52,5 +51,20 @@ class Child(db.Model, BaseMixin):
 
         child_info.standard_temperature = standard_status['standard_temperature']
         child_info.standard_heart_rate = standard_status['standard_heart_rate']
+
+        db.session.commit()
+
+    @staticmethod
+    def delete_child_by_parents_code(parents_code, name):
+        child_info = Child.query.filter_by(parents_code=parents_code ,name=name).first()
+
+        if child_info == None:
+            raise WrongResource()
+
+        db.session.execute(text("""SET FOREIGN_KEY_CHECKS=0"""))
+
+        db.session.delete(child_info)
+
+        db.session.execute(text("""SET FOREIGN_KEY_CHECKS=1"""))
 
         db.session.commit()
