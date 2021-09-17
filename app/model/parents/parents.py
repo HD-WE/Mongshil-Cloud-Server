@@ -27,6 +27,16 @@ class Parents(db.Model, BaseMixin):
 
         return parents_info
 
+    @staticmethod
+    def get_parents_for_login(email, password):
+        parents_info = Parents.query.filter_by(email=email, password=password).first()
+
+        if parents_info == None:
+            raise WrongResource()
+
+        return parents_info
+    
+    @staticmethod
     def update_parents_info(parents_code, name):
         parents_info = Parents.query.filter_by(parents_code=parents_code).first()
 
