@@ -43,6 +43,15 @@ class Child(db.Model, BaseMixin):
         return child_info
 
     @staticmethod
+    def get_child_for_login(parents_code, name):
+        child_info = Child.query.filter_by(parents_code=parents_code, name=name).first()
+
+        if child_info == None:
+            raise WrongResource()
+        
+        return child_info
+
+    @staticmethod
     def update_standard_status(child_id, standard_status):
         child_info = Child.query.filter_by(id=child_id).first()
 
