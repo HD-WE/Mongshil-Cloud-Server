@@ -7,3 +7,6 @@ user_api = Api(user_blueprint)
 from .login import LoginChild, LoginParents
 user_api.add_resource(LoginChild, '/login_child')
 user_api.add_resource(LoginParents, '/login_parents')
+
+from .logout import LogoutChild
+user_api.add_resource(LogoutChild, '/logout_child')
