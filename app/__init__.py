@@ -1,3 +1,4 @@
+from app.view import user
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
@@ -10,6 +11,9 @@ def register_blueprint(app : Flask):
 
     from .view.parents import parents_blueprint
     app.register_blueprint(parents_blueprint)
+
+    from .view.user import user_blueprint
+    app.register_blueprint(user_blueprint)
 
 def create_app() -> Flask:
     app = Flask(__name__)
