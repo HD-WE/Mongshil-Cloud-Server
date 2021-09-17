@@ -68,3 +68,16 @@ class Child(db.Model, BaseMixin):
         db.session.execute(text("""SET FOREIGN_KEY_CHECKS=1"""))
 
         db.session.commit()
+
+    @staticmethod
+    def add_child(parents_code, child_info):
+        try:
+            Child(id=child_info['id'],
+                    parents_code=parents_code,
+                    name=child_info['name'],
+                    device_id=child_info['device_id'],
+                    standard_heart_rate=0,
+                    standard_temperature=0,
+                    is_weared=False).save()
+        except:
+            raise WrongResource()
