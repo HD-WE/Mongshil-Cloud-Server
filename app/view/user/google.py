@@ -18,8 +18,8 @@ import requests
 
 from app.model.parents.parents import Parents
 
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '384169453174-nqatkf14fus5mont0737kn6rud0t15vk.apps.googleusercontent.com')
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", 'WUMOr5h15Ev0p8ED21tqDi2q')
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", 'your id')
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", 'your secret')
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
