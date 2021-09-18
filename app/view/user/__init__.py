@@ -8,6 +8,11 @@ from .login import LoginChild, LoginParents
 user_api.add_resource(LoginChild, '/login_child')
 user_api.add_resource(LoginParents, '/login_parents')
 
-from .logout import LogoutChild, LogoutParents
+from .logout import LogoutChild, LogoutParents, LogoutGoogle
 user_api.add_resource(LogoutChild, '/logout_child')
 user_api.add_resource(LogoutParents, '/logout_parents')
+user_api.add_resource(LogoutGoogle, '/logout_google')
+
+from .google import Login, CallBack
+user_api.add_resource(Login, '/login')
+user_api.add_resource(CallBack, '/login/google')

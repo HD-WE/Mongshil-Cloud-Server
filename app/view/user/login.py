@@ -23,4 +23,3 @@ class LoginParents(Resource):
         session['parents_code'] = response.parents_code
 
         return "login success", 200
-

@@ -35,6 +35,15 @@ class Parents(db.Model, BaseMixin):
             raise WrongResource()
 
         return parents_info
+
+    @staticmethod
+    def get_parents_for_google(email, name):
+        parents_info = Parents.query.filter_by(email=email, name=name).first()
+
+        if parents_info == None:
+            return None
+        
+        return parents_info
     
     @staticmethod
     def update_parents_info(parents_code, name):

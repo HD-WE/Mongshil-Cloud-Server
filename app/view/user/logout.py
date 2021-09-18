@@ -1,5 +1,6 @@
 from flask import session
 from flask_restful import Resource
+from flask_login import logout_user
 
 class LogoutChild(Resource):
     def get(self):
@@ -11,3 +12,8 @@ class LogoutParents(Resource):
         print(session['parents_code'])
         session.pop('parents_code', None)
         return "log out success", 200
+
+class LogoutGoogle(Resource):
+    def get(self):
+        logout_user()
+        return "log out user", 200
