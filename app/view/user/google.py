@@ -66,17 +66,20 @@ class CallBack(Resource):
         uri, headers, body = client.add_token(userinfo_endpoint)
         userinfo_response = requests.get(uri, headers=headers, data=body)
 
-        if userinfo_response.json().get("email_verified"):
-            unique_id = userinfo_response.json()["sub"]
-            users_email = userinfo_response.json()["email"]
-            picture = userinfo_response.json()["picture"]
-            users_name = userinfo_response.json()["given_name"]
+        userinfo_json = userinfo_response.json()
+        
+        if userinfo_json.get("email_verified"):
+            unique_id = userinfo_json["sub"]
+            users_email = userinfo_json["email"]
+            picture = userinfo_json["picture"]
+            users_name = userinfo_json["given_name"]
         else:
             return "User email not available or not verified by Google.", 400
 
         if Parents.get_parents_for_google(users_email, users_name) == None:
-            parents_code = str(uuid.uuid1()).replace("-", "")[0:6]
-            password = str(uuid.uuid1()).replace("-", "")[0:8]
+            uuid_replaced = str(uuid.uuid1()).replace("-", "")
+            parents_code = uuid_replaced[0:6]
+            password = uuid_replaced[0:8]
             now = datetime.datetime.now()
             Parents(parents_code, users_email, users_name, password, now).save()
 
