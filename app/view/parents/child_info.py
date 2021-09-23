@@ -3,7 +3,11 @@ from flask_restful import Resource
 from flask import jsonify, session
 import uuid
 
+from sqlalchemy.sql.operators import json_getitem_op
+from sqlalchemy.sql.type_api import to_instance
+
 from app.model.child.child import Child
+from app.model.child.measured_data import MeasuredData
 from app.exception import Unauthorized
 
 class ChildInfo(Resource):
@@ -15,20 +19,17 @@ class ChildInfo(Resource):
 
         child_info = Child.get_child_info_by_parents_code(parents_code)
 
-        print(child_info)
-
-        key = ["name", "device_id"]
+        key = ["name"]
         value = []
-        info_list = []
 
         for i in range(len(child_info)):
+            info_list = []
             info_list.append(child_info[i].name)
-            info_list.append(child_info[i].device_id)
             value.append(info_list)
         
         total_list = [dict(zip(key, value[i])) for i in range(len(child_info))]
 
-        return jsonify({"childs" : total_list})
+        return jsonify(total_list)
 
     def delete(self):
         parents_code = session['parents_code']
@@ -59,3 +60,41 @@ class ChildInfo(Resource):
         Child.add_child(parents_code, childs_info)
         
         return "", 201
+
+class AllChild(Resource):
+    def get(self):
+        session['parents_code'] = None
+
+        parents_code = session['parents_code']
+
+        if parents_code == None:
+            raise Unauthorized()
+
+        child_info = Child.get_child_info_by_parents_code(parents_code)
+
+        key = ["name", "is_weared", "status"]
+        measured_datas_key = ["temperature", "heart_rate", "movement", "measured_time"]
+        value = []
+
+        for i in range(len(child_info)):
+            child_status = MeasuredData.get_measured_datas(child_info[i].id)
+
+            child_info_list = []
+            measured_datas_list = []
+
+            child_info_list.append(child_info[i].name)
+            child_info_list.append( child_info[i].is_weared)                
+            
+            measured_datas_list.append(str(child_status.temperature))
+            measured_datas_list.append(str(child_status.heart_rate))
+            measured_datas_list.append(child_status.movement)
+            measured_datas_list.append(str(child_status.measured_time))
+
+            child_info_list.append(dict(zip(measured_datas_key, measured_datas_list)))
+            
+            value.append(child_info_list)
+
+        
+        total_list = [dict(zip(key, value[i])) for i in range(len(child_info))]
+
+        return jsonify(total_list)

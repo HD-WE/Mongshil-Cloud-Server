@@ -1,7 +1,7 @@
 # config server 
 db = {
     'user'     : 'root',
-    'password' : '[password]',
+    'password' : '[your password]',
     'host'     : '127.0.0.1',
     'port'     : '3306',
     'database' : 'mungshil_cloud_db'

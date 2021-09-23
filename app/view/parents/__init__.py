@@ -11,6 +11,7 @@ from .parents_info import ParentsInfo, ChangeInfo
 parents_api.add_resource(ParentsInfo, '/info')
 parents_api.add_resource(ChangeInfo, '/change_info')
 
-from .child_info import ChildInfo
+from .child_info import ChildInfo, AllChild
 
 parents_api.add_resource(ChildInfo, '/childs')
+parents_api.add_resource(AllChild, '/all_child')
