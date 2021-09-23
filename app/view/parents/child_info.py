@@ -55,8 +55,6 @@ class ChildInfo(Resource):
 
         childs_info['id'] = id
 
-        print(id)
-
         Child.add_child(parents_code, childs_info)
         
         return "", 201
@@ -92,7 +90,6 @@ class AllChild(Resource):
             
             value.append(child_info_list)
 
-        
         total_list = [dict(zip(key, value[i])) for i in range(len(child_info))]
 
         return jsonify(total_list)

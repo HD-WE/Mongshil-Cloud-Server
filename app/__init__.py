@@ -27,10 +27,6 @@ def create_app() -> Flask:
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    @login_manager.unauthorized_handler
-    def unauthorized():
-        return "You must be logged in to access this content.", 403
-
     db = SQLAlchemy(app)
 
     register_blueprint(app)
