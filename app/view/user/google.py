@@ -16,8 +16,13 @@ import requests
 
 from app.model.parents.parents import Parents
 
+<<<<<<< HEAD
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", 'your id')
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", 'your secret')
+=======
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '["your id"]')
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", '[your secret]')
+>>>>>>> feature/all_child_info
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
@@ -26,7 +31,6 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 class Login(Resource):
     def get(self):
-        session.clear()
         google_provider_cfg = get_google_provider_cfg()
         authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 

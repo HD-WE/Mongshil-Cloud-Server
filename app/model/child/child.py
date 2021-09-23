@@ -25,15 +25,6 @@ class Child(db.Model, BaseMixin):
         self.is_weared = is_weared
 
     @staticmethod
-    def get_child_info_by_child_id(child_id):
-        child_info = Child.query.filter_by(id=child_id).first()
-
-        if child_info == None:
-            raise WrongResource()
-
-        return child_info
-
-    @staticmethod
     def get_child_info_by_parents_code(parents_code):
         child_info = Child.query.filter_by(parents_code=parents_code).all()
 
