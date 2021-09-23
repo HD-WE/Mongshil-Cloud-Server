@@ -12,6 +12,8 @@ from app.exception import Unauthorized
 
 class ChildInfo(Resource):
     def get(self):
+        session['parents_code'] = "BBB"
+
         parents_code = session['parents_code']
 
         if parents_code == None:
@@ -32,14 +34,16 @@ class ChildInfo(Resource):
         return jsonify(total_list)
 
     def delete(self):
+        session['parents_code'] = "BBB"
+
         parents_code = session['parents_code']
 
         if parents_code == None:
             raise Unauthorized()
 
-        child_name = request.json['name']
-
-        Child.delete_child_by_parents_code(parents_code, child_name)
+        for i in range(len(request.json)):
+            child_name = request.json[i]['name']
+            Child.delete_child_by_parents_code(parents_code, child_name)
 
         return "", 200
 
