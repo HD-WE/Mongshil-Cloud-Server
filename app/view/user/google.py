@@ -1,13 +1,11 @@
 import json
 import os
-import sqlite3
 import uuid
 import datetime
 
 from flask_restful import Resource
-from flask import redirect, request, url_for, session
+from flask import redirect, request, session
 from flask_login import (
-    LoginManager,
     current_user,
     login_required,
     login_user,
@@ -69,9 +67,7 @@ class CallBack(Resource):
         userinfo_json = userinfo_response.json()
         
         if userinfo_json.get("email_verified"):
-            unique_id = userinfo_json["sub"]
             users_email = userinfo_json["email"]
-            picture = userinfo_json["picture"]
             users_name = userinfo_json["given_name"]
         else:
             return "User email not available or not verified by Google.", 400
@@ -88,7 +84,5 @@ class CallBack(Resource):
         return 'google login success', 200
 
         
-
-
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
