@@ -63,8 +63,6 @@ class ChildInfo(Resource):
 
 class AllChild(Resource):
     def get(self):
-        session['parents_code'] = None
-
         parents_code = session['parents_code']
 
         if parents_code == None:
@@ -85,10 +83,10 @@ class AllChild(Resource):
             child_info_list.append(child_info[i].name)
             child_info_list.append( child_info[i].is_weared)                
             
-            measured_datas_list.append(str(child_status.temperature))
-            measured_datas_list.append(str(child_status.heart_rate))
+            measured_datas_list.append(child_status.temperature)
+            measured_datas_list.append(child_status.heart_rate)
             measured_datas_list.append(child_status.movement)
-            measured_datas_list.append(str(child_status.measured_time))
+            measured_datas_list.append(child_status.measured_time)
 
             child_info_list.append(dict(zip(measured_datas_key, measured_datas_list)))
             
