@@ -20,12 +20,10 @@ class ChildInfo(Resource):
         child_info = Child.get_child_info_by_parents_code(parents_code)
 
         key = ["name"]
-        value = []
 
         for i in range(len(child_info)):
-            info_list = []
-            info_list.append(child_info[i].name)
-            value.append(info_list)
+            info_list = [child_info[i].name]
+            value = [info_list]
         
         total_list = [dict(zip(key, value[i])) for i in range(len(child_info))]
 
@@ -70,25 +68,16 @@ class AllChild(Resource):
 
         key = ["name", "is_weared", "status"]
         measured_datas_key = ["temperature", "heart_rate", "movement", "measured_time"]
-        value = []
 
         for i in range(len(child_info)):
             child_status = MeasuredData.get_measured_datas(child_info[i].id)
 
-            child_info_list = []
-            measured_datas_list = []
-
-            child_info_list.append(child_info[i].name)
-            child_info_list.append( child_info[i].is_weared)                
-            
-            measured_datas_list.append(child_status.temperature)
-            measured_datas_list.append(child_status.heart_rate)
-            measured_datas_list.append(child_status.movement)
-            measured_datas_list.append(child_status.measured_time)
+            child_info_list = [child_info[i].name, child_info[i].is_weared]
+            measured_datas_list = [child_status.temperature, child_status.heart_rate, child_status.movement, child_status.measured_time]
 
             child_info_list.append(dict(zip(measured_datas_key, measured_datas_list)))
             
-            value.append(child_info_list)
+            value = [child_info_list]
 
         total_list = [dict(zip(key, value[i])) for i in range(len(child_info))]
 

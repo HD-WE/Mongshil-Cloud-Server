@@ -9,7 +9,6 @@ from .measured_data import MeasuredDatas
 
 child_api.add_resource(MeasuredDatas, '/<child_id>/measured_data')
 
-
 from .child_info import StandardStatus
 
 child_api.add_resource(StandardStatus, "/<child_id>/standard_status")
