@@ -10,4 +10,4 @@ class StandardStatus(Resource):
 
         Child.update_standard_status(child_id, standard_status)
 
-        return SuccessRequest()
+        return "success change standard status", 200

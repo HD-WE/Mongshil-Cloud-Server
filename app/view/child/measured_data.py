@@ -17,4 +17,4 @@ class MeasuredDatas(Resource):
 
         MeasuredData.insert_measured_datas(child_id, id, measured_datas)
 
-        return "", 201
+        return "success save measured datas", 201

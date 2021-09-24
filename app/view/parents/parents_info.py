@@ -28,4 +28,4 @@ class ChangeInfo(Resource):
 
         Parents.update_parents_info(parents_code, json_info['name'])
 
-        return "", 201
+        return "success change parents info", 201

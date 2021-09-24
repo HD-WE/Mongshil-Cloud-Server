@@ -41,7 +41,7 @@ class ChildInfo(Resource):
             child_name = request.json[i]['name']
             Child.delete_child_by_parents_code(parents_code, child_name)
 
-        return "", 200
+        return "success delete child", 200
 
     def post(self):
         try:
@@ -57,7 +57,7 @@ class ChildInfo(Resource):
 
         Child.add_child(parents_code, childs_info)
         
-        return "", 201
+        return "success save child", 201
 
 class AllChild(Resource):
     def get(self):
