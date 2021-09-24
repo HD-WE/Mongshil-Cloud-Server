@@ -12,9 +12,9 @@ from app.exception import Unauthorized
 
 class ChildInfo(Resource):
     def get(self):
-        parents_code = session['parents_code']
-
-        if parents_code == None:
+        try:
+            parents_code = session['parents_code']
+        except:
             raise Unauthorized()
 
         child_info = Child.get_child_info_by_parents_code(parents_code)
@@ -32,9 +32,9 @@ class ChildInfo(Resource):
         return jsonify(total_list)
 
     def delete(self):
-        parents_code = session['parents_code']
-
-        if parents_code == None:
+        try:
+            parents_code = session['parents_code']
+        except:
             raise Unauthorized()
 
         for i in range(len(request.json)):
@@ -44,9 +44,9 @@ class ChildInfo(Resource):
         return "", 200
 
     def post(self):
-        parents_code = session['parents_code']
-
-        if parents_code == None:
+        try:
+            parents_code = session['parents_code']
+        except:
             raise Unauthorized()
 
         id = str(uuid.uuid1()).replace("-", "")[0:12]
@@ -61,9 +61,9 @@ class ChildInfo(Resource):
 
 class AllChild(Resource):
     def get(self):
-        parents_code = session['parents_code']
-
-        if parents_code == None:
+        try:
+            parents_code = session['parents_code']
+        except:
             raise Unauthorized()
 
         child_info = Child.get_child_info_by_parents_code(parents_code)

@@ -14,4 +14,4 @@ class SuccessRequest(MungshilException):
 
 class Unauthorized(MungshilException):
     code = 401
-    default_exceptions = "unauthorized user"
+    description = "unauthorized user"

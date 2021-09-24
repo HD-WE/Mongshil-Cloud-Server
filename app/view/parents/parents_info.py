@@ -3,10 +3,14 @@ from flask_restful import Resource
 from flask import jsonify, session, request
 
 from app.model.parents.parents import Parents
+from app.exception import Unauthorized
 
 class ParentsInfo(Resource):
     def get(self):
-        parents_code = session['parents_code']
+        try:
+            parents_code = session['parents_code']
+        except:
+            raise Unauthorized()
 
         parents_info = Parents.get_parents_info(parents_code)
 
@@ -15,7 +19,10 @@ class ParentsInfo(Resource):
 
 class ChangeInfo(Resource):
     def put(self):
-        parents_code = session['parents_code']
+        try:
+            parents_code = session['parents_code']
+        except:
+            raise Unauthorized()
 
         json_info = request.json
 

@@ -11,8 +11,3 @@ class LogoutParents(Resource):
     def get(self):
         session.pop('parents_code', None)
         return "log out success", 200
-
-class LogoutGoogle(Resource):
-    def get(self):
-        logout_user()
-        return "log out user", 200

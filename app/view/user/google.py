@@ -6,7 +6,6 @@ import datetime
 from flask_restful import Resource
 from flask import redirect, request, session
 from flask_login import (
-    current_user,
     login_required,
     login_user,
     logout_user,
@@ -16,8 +15,8 @@ import requests
 
 from app.model.parents.parents import Parents
 
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", 'your id')
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", 'your secret')
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '[your id]')
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", '[your secret]')
 
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
@@ -81,7 +80,7 @@ class CallBack(Resource):
 
         session['parents_code'] = Parents.get_parents_for_google(users_email, users_name).parents_code
 
-        return 'google login success', 200
+        return redirect('/parents/all_child')
 
         
 def get_google_provider_cfg():
