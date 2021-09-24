@@ -1,4 +1,6 @@
 # config server 
+import os
+
 db = {
     'user'     : 'root',
     'password' : '[your password]',
@@ -8,3 +10,6 @@ db = {
 }
 
 DB_URL = f"mysql+mysqlconnector://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=utf8" 
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", '[google id]')
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", '[google secret]')
