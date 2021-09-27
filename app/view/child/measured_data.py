@@ -9,7 +9,9 @@ from app.model.child.measured_data import MeasuredData
 from app.model.child.child import Child
 
 class MeasuredDatas(Resource):
-    def post(self, child_id):  
+    def post(self):  
+        child_id = session['child_id']
+
         json_request = request.json
 
         measured_datas = {}
@@ -32,9 +34,9 @@ class MeasuredDatas(Resource):
         measured_datas['temperature'] = pasing_json[0]
         measured_datas['heart_rate'] = pasing_json[1]
         measured_datas['location'] = json_request['location']
-        measured_datas['stress'] = check_stress(pasing_json[1])
+        measured_datas['stress'] = check_stress(child_id, pasing_json[1])
 
-        update_weared_status(pasing_json[5])
+        update_weared_status(child_id, pasing_json[5])
 
         MeasuredData.insert_measured_datas(child_id, id, measured_datas)
 
@@ -46,9 +48,7 @@ def check_movement(move_x, move_y_, move_z):
     else:
         return "weak"
 
-def check_stress(heart_rate):
-    child_id = session['child_id']
-
+def check_stress(child_id, heart_rate):
     child_info = Child.get_child_info_by_child_id(child_id)
 
     if float(heart_rate) - child_info.standard_temperature >= 20:
@@ -58,7 +58,5 @@ def check_stress(heart_rate):
     else:
         return "relaxed"
 
-def update_weared_status(is_weared):
-    child_id = session['child_id']
-
+def update_weared_status(child_id, is_weared):
     Child.update_weared_status(child_id, is_weared)

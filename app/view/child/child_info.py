@@ -1,11 +1,12 @@
 from flask_restful import Resource
-from flask import json, jsonify, request
+from flask import jsonify, request, session
 
 from app.model.child.child import Child
-from app.exception import SuccessRequest
 
 class StandardStatus(Resource):
-    def put(self, child_id):
+    def put(self):
+        child_id = session['child_id']
+
         json_request = request.json
 
         measured_datas = {}
