@@ -3,9 +3,6 @@ from flask_restful import Resource
 from flask import jsonify, session
 import uuid
 
-from sqlalchemy.sql.operators import json_getitem_op
-from sqlalchemy.sql.type_api import to_instance
-
 from app.model.child.child import Child
 from app.model.child.measured_data import MeasuredData
 from app.exception import Unauthorized

@@ -1,8 +1,7 @@
 from app.view import user
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 
 import config
 import os

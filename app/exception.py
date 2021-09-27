@@ -1,4 +1,3 @@
-from flask.json import detect_encoding
 from werkzeug.exceptions import HTTPException
 
 class MungshilException(HTTPException):

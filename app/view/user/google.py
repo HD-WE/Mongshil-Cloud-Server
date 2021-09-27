@@ -1,15 +1,10 @@
 import json
-import os
 import uuid
 import datetime
 
 from flask_restful import Resource
 from flask import redirect, request, session
-from flask_login import (
-    login_required,
-    login_user,
-    logout_user,
-)
+
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 

@@ -1,6 +1,5 @@
 from flask import session
 from flask_restful import Resource
-from flask_login import logout_user
 
 class LogoutChild(Resource):
     def get(self):

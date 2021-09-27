@@ -1,6 +1,4 @@
-from app.model.child.child import Child
-from flask import Blueprint, request
-from flask.globals import session
+from flask import Blueprint
 from flask_restful import Api
 
 parents_blueprint = Blueprint('parents', __name__, url_prefix='/parents')

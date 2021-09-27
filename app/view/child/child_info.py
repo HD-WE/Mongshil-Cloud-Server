@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask import jsonify, request, session
+from flask import request, session
 
 from app.model.child.child import Child
 

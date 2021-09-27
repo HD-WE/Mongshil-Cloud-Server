@@ -1,6 +1,5 @@
-from re import M
 from flask_restful import Resource
-from flask import jsonify, request, session
+from flask import request, session
 
 import datetime
 import uuid
