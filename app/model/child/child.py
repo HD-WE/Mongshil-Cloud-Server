@@ -50,7 +50,7 @@ class Child(db.Model, BaseMixin):
             raise WrongResource()
 
         child_info.standard_temperature = (child_info.standard_temperature + float(standard_status['standard_temperature'])) / 2
-        child_info.standard_heart_rate = (child_info.standard_heart_rate + int(standard_status['standard_heart_rate'])) / 2
+        child_info.standard_heart_rate = int((child_info.standard_heart_rate + int(standard_status['standard_heart_rate'])) / 2)
 
         db.session.commit()
 
