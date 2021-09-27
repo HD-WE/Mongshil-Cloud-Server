@@ -1,3 +1,4 @@
+from app import exception
 from flask_restful import Resource
 from flask import request, session
 
@@ -6,10 +7,14 @@ import uuid
 
 from app.model.child.measured_data import MeasuredData
 from app.model.child.child import Child
+from app.exception import WrongResource
 
 class MeasuredDatas(Resource):
     def post(self):  
-        child_id = session['child_id']
+        try:
+            child_id = session['child_id']
+        except:
+            raise WrongResource()
 
         json_request = request.json
 

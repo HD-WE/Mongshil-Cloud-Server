@@ -2,10 +2,14 @@ from flask_restful import Resource
 from flask import request, session
 
 from app.model.child.child import Child
+from app.exception import WrongResource
 
 class StandardStatus(Resource):
     def put(self):
-        child_id = session['child_id']
+        try:
+            child_id = session['child_id']
+        except:
+            raise WrongResource()
 
         json_request = request.json
 
