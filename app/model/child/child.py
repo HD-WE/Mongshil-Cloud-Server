@@ -49,8 +49,8 @@ class Child(db.Model, BaseMixin):
         if child_info == None:
             raise WrongResource()
 
-        child_info.standard_temperature = standard_status['standard_temperature']
-        child_info.standard_heart_rate = standard_status['standard_heart_rate']
+        child_info.standard_temperature = (child_info.standard_temperature + float(standard_status['standard_temperature'])) / 2
+        child_info.standard_heart_rate = (child_info.standard_heart_rate + int(standard_status['standard_heart_rate'])) / 2
 
         db.session.commit()
 
