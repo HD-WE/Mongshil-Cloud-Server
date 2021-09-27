@@ -12,8 +12,9 @@ class MeasuredData(db.Model, BaseMixin):
     movement = db.Column(db.String(45), nullable=False)
     measured_time = db.Column(db.DateTime(), nullable=False)
     location = db.Column(db.String(45), nullable=False)
+    stress = db.Column(db.String(8), nullable=False)
 
-    def __init__(self, id, child_id, temperature, heart_rate, movement, measured_time, location):
+    def __init__(self, id, child_id, temperature, heart_rate, movement, measured_time, location, stress):
         self.id = id
         self.child_id = child_id
         self.temperature = temperature
@@ -21,6 +22,7 @@ class MeasuredData(db.Model, BaseMixin):
         self.movement = movement
         self.measured_time = measured_time
         self.location = location
+        self.stress = stress
 
     @staticmethod
     def get_measured_datas(child_id):
@@ -39,6 +41,7 @@ class MeasuredData(db.Model, BaseMixin):
                     heart_rate=measured_datas['heart_rate'], 
                     movement=measured_datas['movement'],
                     measured_time=measured_datas['measured_time'],
-                    location=measured_datas['location']).save()
+                    location=measured_datas['location'],
+                    stress=measured_datas['stress']).save()
 
     

@@ -34,6 +34,15 @@ class Child(db.Model, BaseMixin):
         return child_info
 
     @staticmethod
+    def get_child_info_by_child_id(child_id):
+        child_info = Child.query.filter_by(id=child_id).first()
+
+        if child_info == None:
+            raise WrongResource()
+
+        return child_info
+
+    @staticmethod
     def get_child_for_login(parents_code, name):
         child_info = Child.query.filter_by(parents_code=parents_code, name=name).first()
 
@@ -51,6 +60,17 @@ class Child(db.Model, BaseMixin):
 
         child_info.standard_temperature = (child_info.standard_temperature + float(standard_status['standard_temperature'])) / 2
         child_info.standard_heart_rate = int((child_info.standard_heart_rate + int(standard_status['standard_heart_rate'])) / 2)
+
+        db.session.commit()
+
+    @staticmethod
+    def update_weared_status(child_id, is_weared):
+        child_info = Child.query.filter_by(id=child_id)
+
+        if child_info == None:
+            raise WrongResource()
+
+        child_info.is_weared = is_weared
 
         db.session.commit()
 
